@@ -141,12 +141,12 @@ public:
 	bool contain(double x, double y)
 	{
 		Vector2f a = { point_one.x - point_two.x,point_one.y - point_two.y };
-		double tochnost = 0.1/ (1 + abs(angle(a)));
+		double tochnost = 0.07/ (1 + abs(angle(a)));
 		if (abs(angle(a)) < 0.05 or abs(angle(a)) > 0.995)
-			tochnost = 0.4;
+			tochnost = 0.3;
 		if(abs(angle(a)) < 0.00005 or abs(angle(a)) > 0.99995)
 			tochnost = 1;
-		/*out <<point_two.x<<" "<< point_two.y << "     "<< dlina(point_one.x, point_one.y, point_two.x, point_two.y) << " " << dlina(point_two.x, point_two.y, x, y) << endl;*/
+	/*	cout <<tochnost <<" " <<angle(a)<<endl;*/
 		return (abs(((x - point_one.x) / (point_two.x - point_one.x)) - ((y - point_one.y) / (point_two.y - point_one.y))) < tochnost) and (dlina(point_one.x, point_one.y, point_two.x, point_two.y)>= dlina(point_one.x, point_one.y, x, y)) and(dlina(point_one.x, point_one.y, point_two.x, point_two.y)>= dlina(x, y, point_two.x, point_two.y));
 	}
 	bool contain(Vector2f pos)

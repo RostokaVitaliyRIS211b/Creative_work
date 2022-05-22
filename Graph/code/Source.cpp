@@ -92,7 +92,7 @@ int main()
 				contain_pos(mouse_pos.x, mouse_pos.y, line);
 			}
 		/*cout << "rt4" << endl;*/
-		if (!ifx(circle_focus) and !ifx(circle_making) and ifx(line_focus) and !ifx(commi))
+		if (!ifx(circle_focus) and !ifx(circle_making) and !ifx(circle_deleting) and ifx(line_focus) and !ifx(commi))
 		{
 			otobtl[posl].set_color(Color::Red);
 		}
@@ -101,7 +101,7 @@ int main()
 			if (otobtl.size() > 0 and posl < otobtl.size())
 				otobtl[posl].set_color(Color::Black);
 		}
-		if (ifx(circle_focus) and !ifx(line_making) and !ifx(line_focus) and !ifx(commi))
+		if (ifx(circle_focus) and !ifx(line_making) and !ifx(line_focus) and !ifx(line_deleting) and !ifx(commi))
 		{
 			otobr[pos].set_color(Color(196, 107, 23));
 		}
@@ -121,7 +121,7 @@ int main()
 			{
 				if (event.key.code == Mouse::Right and !ifx(commi))
 				{
-					if (ifx(circle_focus))
+					if (ifx(circle_focus) and !ifx(line_making) and !ifx(line_focus) and !ifx(line_deleting) and !ifx(commi) and !ifx(circle_deleting))
 					{
 						string s = texting_window(MainWindow.getSize(), false);
 						if (s.size() > 0 and s.size()<6)
@@ -130,7 +130,7 @@ int main()
 							otobr[pos].set_name(s);
 						}
 					}
-					if (!ifx(circle_focus) and ifx(line_focus))
+					if (!ifx(circle_focus) and !ifx(circle_making) and !ifx(circle_deleting) and ifx(line_focus) and !ifx(commi) and !ifx(line_deleting))
 					{
 						string s = texting_window(MainWindow.getSize(), true);
 						int x = string_to_int(s);
@@ -527,8 +527,7 @@ void drawtable()
 		Table.clear(Color::White);
 		while (Table.pollEvent(event))
 		{
-			if (event.key.code == Keyboard::Escape)
-				Table.close();
+			
 			for (int i = 0; i < messages.size(); ++i)
 				if (messages[i].contain(mouse_pos.x, mouse_pos.y))
 					post = i;
@@ -608,7 +607,12 @@ void drawtable()
 					}
 				}
 			}
-
+			if (event.key.code == Keyboard::Escape)
+			{
+				cout << "esc" << endl;
+				Table.close();
+			}
+				
 		}
 		for (int i = 0; i < messages.size(); ++i)
 			messages[i].draw(Table);
