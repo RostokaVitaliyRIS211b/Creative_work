@@ -126,41 +126,38 @@ int main()
 				break;
 			case Event::KeyPressed:
 			{
-				if ((event.key.code >= Keyboard::Num0 and event.key.code <= Keyboard::Num9 or event.key.code==52 or event.key.code==50 or event.key.code == Keyboard::BackSpace) and ifx(first_pole))
+				if ((event.key.code >= Keyboard::Num0 and event.key.code <= Keyboard::Num9 or event.key.code==52 or event.key.code==50 or event.key.code == Keyboard::BackSpace) and ifx(first_pole) and s.length() < 11)
 				{
-					if ((event.key.code == 52 or event.key.code == 50) and !contain(s) and (s.size() > 0 or event.key.code != Keyboard::Num0 or event.key.code != 52 or event.key.code != 50))
-					{
-
-						if (event.key.code == 52)
+					string buff = s;
+						if (event.key.code == 52 and !contain(s))
 							s += '/';
-						else if (event.key.code == 50)
+						if (event.key.code == 50 and !contain(s))
 							s += '.';
-					}
-					else
-					{
 						if(event.key.code >= Keyboard::Num0 and event.key.code <= Keyboard::Num9)
 							s += char(event.key.code + 22);
-							if (event.key.code == Keyboard::BackSpace)
-								if (s.length() > 1)
-									s.erase(s.length() - 1, s.length() - 1);
-								else
-									s = "";
+						if (event.key.code == Keyboard::BackSpace)
+							if (s.length() > 1)
+								s.erase(s.length() - 1, s.length() - 1);
+							else
+								s = "";
 							/*cout << "h5 " <<s.length()<< endl;*/
-					}
+						if (s.length() > 0)
+							if (s[0] == '0')
+								s = buff;
+						if(s.length()>2)
+							if ((s[s.length() - 2] == '/' and s[s.length() - 1] == '0'))
+								s = buff;
 					boxes[0].set_string(s);
 				}
-				if ((event.key.code >= Keyboard::Num0 and event.key.code <= Keyboard::Num9 or event.key.code == 52 or event.key.code == 50 or event.key.code == Keyboard::BackSpace) and ifx(second_pole))
+				if ((event.key.code >= Keyboard::Num0 and event.key.code <= Keyboard::Num9 or event.key.code == 52 or event.key.code == 50 or event.key.code == Keyboard::BackSpace) and ifx(second_pole) and s1.length() < 11)
 				{
 					/*cout << "yu1" << endl;*/
-					if ((event.key.code == 52 or event.key.code == 50) and !contain(s1) and (s1.size() > 0 or event.key.code != Keyboard::Num0 or event.key.code != 52 or event.key.code != 50) )
-					{
-						if (event.key.code == 52)
+					string buff = s1;
+						if (event.key.code == 52 and !contain(s1))
 							s1 += '/';
-						else if (event.key.code == 50)
+						if (event.key.code == 50 and !contain(s1))
 							s1 += '.';
-					}
-					else
-					{
+				
 						if (event.key.code >= Keyboard::Num0 and event.key.code <= Keyboard::Num9)
 							s1 += char(event.key.code + 22);
 						if (event.key.code == Keyboard::BackSpace)
@@ -168,7 +165,12 @@ int main()
 								s1.erase(s1.length() - 1, s1.length() - 1);
 							else
 								s1 = "";
-					}
+						if (s1.length() > 0)
+							if (s1[0] == '0')
+								s1 = buff;
+						if (s1.length() > 2)
+							if ((s1[s1.length() - 2] == '/' and s1[s1.length() - 1] == '0'))
+								s1 = buff;
 					/*cout << "yu" << endl;*/
 					boxes[1].set_string(s1);
 				}
@@ -422,3 +424,11 @@ string get_result(string num1, string num2, char operation, bool vid)
 	return result;
 	
 }
+//TEST_CASE("Squares are computed", "[Square]")
+//{
+//	REQUIRE(Square(1) == 1);
+//	REQUIRE(Square(2) == 4);
+//	REQUIRE(Square(3) == 9);
+//	REQUIRE(Square(7) == 49);
+//	REQUIRE(Square(10) == 100);
+//}
