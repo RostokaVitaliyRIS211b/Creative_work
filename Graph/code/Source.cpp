@@ -48,11 +48,7 @@ int main()
 		Commivoyager_active = 7,
 		Commivoyager_not_active = -7,
 		Table_draw=8,
-		Table_not_draw=-8,
-		Line_oriented=9,
-		Line_not_oriented = -9,
-		Give_pos1=10,
-		Give_pos2 = -10
+		Table_not_draw=-8
 	};
 	enum Objects
 	{
